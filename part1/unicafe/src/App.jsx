@@ -21,16 +21,18 @@ const Statistics = ({good, neutral, bad}) => {
   ) : (
     <>
       <h2>Statistics</h2>
-      <p>Good : {good}</p>
-      <p>Neutral : {neutral}</p>
-      <p>Bad : {bad}</p>
+      <StatisticLine text="Good" value={good} />
+      <StatisticLine text="Neutral" value={neutral} />
+      <StatisticLine text="Bad" value={bad} />
       <br />
-      <p>All : {getTotal()}</p>
-      <p>Average : {getAverage()}</p>
-      <p>Positive : {getPositive()}%</p>
+      <StatisticLine text="All" value={getTotal()} />
+      <StatisticLine text="Average" value={getAverage()} />
+      <StatisticLine text="Positive" value={getPositive() + "%"} />
     </>
   )
 }
+
+const StatisticLine = ({text, value}) => <p>{text} : {value}</p>
 
 const App = () => {
   const [good, setGood] = useState(0)
