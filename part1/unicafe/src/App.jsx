@@ -10,20 +10,15 @@ const Button = ({onClick, text}) => {
 
 const Statistics = ({good, neutral, bad}) => {
   const getTotal = () => good + neutral + bad
-  const getAverage = () => {
-    if (getTotal() === 0) {
-      return 0
-    }
-    return (good - bad)/getTotal()
-  }
-  const getPositive = () => {
-    return getTotal() === 0 ? (
-      0
-    ) : (
-      good/getTotal()
-    )
-  }
-  return (
+  const getAverage = () => (good - bad)/getTotal()
+  const getPositive = () => good/getTotal()
+  
+  return getTotal() === 0 ? (
+    <>
+      <h2>Statistics</h2>
+      <p>No feedback given</p>
+    </>
+  ) : (
     <>
       <h2>Statistics</h2>
       <p>Good : {good}</p>
