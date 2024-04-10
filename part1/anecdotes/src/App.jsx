@@ -2,6 +2,16 @@ import { useState } from 'react'
 
 const Button = ({onClick, text}) => <button onClick={onClick}>{text}</button>
 
+const AnecdoteSection = ({title, anecdote, votes}) => {
+  return (
+    <>
+      <h2>{title}</h2>
+      <q>{anecdote}</q>
+      <p>has {votes} votes</p>
+    </>
+  )
+}
+
 const App = () => {
   const anecdotes = [
     'If it hurts, do it more often.',
@@ -29,15 +39,24 @@ const App = () => {
     newPoints[selected] += 1
     setPoints(newPoints)
   }
-
+  const getIndexOfMostVotes = () => {
+    let max = points[0]
+    let maxIndex = 0
+    for(let i = 1; i < points.length; i++) {
+      if (points[i] > max) {
+        max = points[i]
+        maxIndex = i
+      }
+    }
+    return maxIndex
+  }
+  
   return (
     <div>
-      <q>
-        {anecdotes[selected]}
-      </q>
-      <p>has {points[selected]} votes</p>
-      <Button onClick={handleVote} text="vote" />
+      <AnecdoteSection title="Anecdote of the day" anecdote={anecdotes[selected]} votes={points[selected]} />
+      <Button onClick={handleVote} text="vote" />&nbsp;
       <Button onClick={handleNext} text="next anecdote" />
+      <AnecdoteSection title="Anecdote with most votes" anecdote={anecdotes[getIndexOfMostVotes()]} votes={points[getIndexOfMostVotes()]} />
     </div>
   )
 }
